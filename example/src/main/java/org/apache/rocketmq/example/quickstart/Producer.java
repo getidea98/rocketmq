@@ -61,14 +61,13 @@ public class Producer {
          */
         producer.start();
 
-        for (int i = 0; i != MESSAGE_COUNT; i++) {
+        for (int i = 0; i != 1; i++) {
             try {
 
                 /*
                  * Create a message instance, specifying topic, tag and message body.
                  */
                 Message msg = new Message(TOPIC, TAG, ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
-                Thread.sleep(1000);
                 /*
                  * Call send message to deliver message to one of brokers.
                  */

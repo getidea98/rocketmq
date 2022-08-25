@@ -420,6 +420,7 @@ public class RouteInfoManager {
         try {
             try {
                 this.lock.readLock().lockInterruptibly();
+                // queueDataMap: 有这个 topic 的 broker的集合。其中key：brokerName
                 Map<String, QueueData> queueDataMap = this.topicQueueTable.get(topic);
                 if (queueDataMap != null) {
                     topicRouteData.setQueueDatas(new ArrayList<>(queueDataMap.values()));
@@ -428,10 +429,10 @@ public class RouteInfoManager {
                     brokerNameSet.addAll(queueDataMap.keySet());
 
                     for (String brokerName : brokerNameSet) {
+                        // 获取 broker 信息
                         BrokerData brokerData = this.brokerAddrTable.get(brokerName);
                         if (null != brokerData) {
-                            BrokerData brokerDataClone = new BrokerData(brokerData.getCluster(), brokerData.getBrokerName(), (HashMap<Long, String>) brokerData
-                                    .getBrokerAddrs().clone());
+                            BrokerData brokerDataClone = new BrokerData(brokerData.getCluster(), brokerData.getBrokerName(), (HashMap<Long, String>) brokerData.getBrokerAddrs().clone());
                             brokerDataList.add(brokerDataClone);
                             foundBrokerData = true;
 
