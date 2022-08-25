@@ -300,6 +300,13 @@ public class NettyRemotingServer extends NettyRemotingAbstract implements Remoti
         }
     }
 
+    /**
+     * 将 requestCode 和 processor 映射起来。
+     * 执行 processor时，需要用到线程池，因此将 processor 和 executor 组合起来，然后与 requestCode做映射
+     * @param requestCode
+     * @param processor
+     * @param executor
+     */
     @Override
     public void registerProcessor(int requestCode, NettyRequestProcessor processor, ExecutorService executor) {
         ExecutorService executorThis = executor;
