@@ -20,6 +20,7 @@ package org.apache.rocketmq.test.client.producer.batch;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import org.apache.log4j.Logger;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;

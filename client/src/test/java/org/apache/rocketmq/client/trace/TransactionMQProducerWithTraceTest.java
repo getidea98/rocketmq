@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+
 import org.apache.rocketmq.client.ClientConfig;
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
@@ -110,7 +111,7 @@ public class TransactionMQProducerWithTraceTest {
         producer.setTransactionListener(transactionListener);
 
         producer.setNamesrvAddr("127.0.0.1:9876");
-        message = new Message(topic, new byte[] {'a', 'b', 'c'});
+        message = new Message(topic, new byte[]{'a', 'b', 'c'});
         asyncTraceDispatcher = (AsyncTraceDispatcher) producer.getTraceDispatcher();
         traceProducer = asyncTraceDispatcher.getTraceProducer();
 
@@ -137,10 +138,10 @@ public class TransactionMQProducerWithTraceTest {
         fieldHooks.set(producer.getDefaultMQProducerImpl(), hooks);
 
         when(mQClientAPIImpl.sendMessage(anyString(), anyString(), any(Message.class), any(SendMessageRequestHeader.class), anyLong(), any(CommunicationMode.class),
-            nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class))).thenCallRealMethod();
+                nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class))).thenCallRealMethod();
         when(mQClientAPIImpl.sendMessage(anyString(), anyString(), any(Message.class), any(SendMessageRequestHeader.class), anyLong(), any(CommunicationMode.class),
-            nullable(SendCallback.class), nullable(TopicPublishInfo.class), nullable(MQClientInstance.class), anyInt(), nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class)))
-            .thenReturn(createSendResult(SendStatus.SEND_OK));
+                nullable(SendCallback.class), nullable(TopicPublishInfo.class), nullable(MQClientInstance.class), anyInt(), nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class)))
+                .thenReturn(createSendResult(SendStatus.SEND_OK));
 
     }
 
@@ -150,7 +151,8 @@ public class TransactionMQProducerWithTraceTest {
         when(mQClientAPIImpl.getTopicRouteInfoFromNameServer(anyString(), anyLong())).thenReturn(createTopicRoute());
         final AtomicReference<EndTransactionContext> context = new AtomicReference<EndTransactionContext>();
         doAnswer(new Answer() {
-            @Override public Object answer(InvocationOnMock mock) throws Throwable {
+            @Override
+            public Object answer(InvocationOnMock mock) throws Throwable {
                 context.set((EndTransactionContext) mock.getArgument(0));
                 return null;
             }

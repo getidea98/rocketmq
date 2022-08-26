@@ -19,6 +19,7 @@ package org.apache.rocketmq.tools.command.acl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
@@ -93,7 +94,7 @@ public class UpdateAccessConfigSubCommand implements SubCommand {
 
     @Override
     public void execute(CommandLine commandLine, Options options,
-        RPCHook rpcHook) throws SubCommandException {
+                        RPCHook rpcHook) throws SubCommandException {
 
         DefaultMQAdminExt defaultMQAdminExt = new DefaultMQAdminExt(rpcHook);
         defaultMQAdminExt.setInstanceName(Long.toString(System.currentTimeMillis()));
@@ -165,7 +166,7 @@ public class UpdateAccessConfigSubCommand implements SubCommand {
 
                 defaultMQAdminExt.start();
                 Set<String> brokerAddrSet =
-                    CommandUtil.fetchMasterAndSlaveAddrByClusterName(defaultMQAdminExt, clusterName);
+                        CommandUtil.fetchMasterAndSlaveAddrByClusterName(defaultMQAdminExt, clusterName);
                 for (String addr : brokerAddrSet) {
                     defaultMQAdminExt.createAndUpdatePlainAccessConfig(addr, accessConfig);
                     System.out.printf("create or update plain access config to %s success.%n", addr);

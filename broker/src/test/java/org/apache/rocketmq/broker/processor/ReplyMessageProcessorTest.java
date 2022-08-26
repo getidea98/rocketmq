@@ -18,10 +18,12 @@ package org.apache.rocketmq.broker.processor;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+
 import java.lang.reflect.Field;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.rocketmq.broker.BrokerController;
 import org.apache.rocketmq.broker.client.ClientChannelInfo;
 import org.apache.rocketmq.broker.client.net.Broker2Client;
@@ -105,7 +107,7 @@ public class ReplyMessageProcessorTest {
     private RemotingCommand createSendMessageRequestHeaderCommand(int requestCode) {
         SendMessageRequestHeader requestHeader = createSendMessageRequestHeader();
         RemotingCommand request = RemotingCommand.createRequestCommand(requestCode, requestHeader);
-        request.setBody(new byte[] {'a'});
+        request.setBody(new byte[]{'a'});
         request.makeCustomHeaderToNet();
         return request;
     }

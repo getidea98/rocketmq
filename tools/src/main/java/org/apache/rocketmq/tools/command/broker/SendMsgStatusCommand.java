@@ -17,6 +17,7 @@
 package org.apache.rocketmq.tools.command.broker;
 
 import java.io.UnsupportedEncodingException;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;

@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 import org.apache.rocketmq.test.util.RandomUtil;
 import org.apache.rocketmq.test.util.data.collect.DataCollector;
 import org.apache.rocketmq.test.util.data.collect.DataCollectorManager;
@@ -37,14 +38,14 @@ public abstract class MQCollector {
 
     public MQCollector() {
         msgBodys = DataCollectorManager.getInstance()
-            .fetchListDataCollector(RandomUtil.getStringByUUID());
+                .fetchListDataCollector(RandomUtil.getStringByUUID());
         originMsgs = DataCollectorManager.getInstance()
-            .fetchListDataCollector(RandomUtil.getStringByUUID());
+                .fetchListDataCollector(RandomUtil.getStringByUUID());
         errorMsgs = DataCollectorManager.getInstance()
-            .fetchListDataCollector(RandomUtil.getStringByUUID());
+                .fetchListDataCollector(RandomUtil.getStringByUUID());
         originMsgIndex = new ConcurrentHashMap<Object, Object>();
         msgRTs = DataCollectorManager.getInstance()
-            .fetchListDataCollector(RandomUtil.getStringByUUID());
+                .fetchListDataCollector(RandomUtil.getStringByUUID());
     }
 
     public MQCollector(String originMsgCollector, String msgBodyCollector) {

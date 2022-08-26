@@ -26,13 +26,14 @@ public interface NettyRequestProcessor {
 
     /**
      * 子类实现方法，去处理请求
+     *
      * @param ctx
      * @param request
      * @return
      * @throws Exception
      */
     RemotingCommand processRequest(ChannelHandlerContext ctx, RemotingCommand request)
-        throws Exception;
+            throws Exception;
 
     boolean rejectRequest();
 

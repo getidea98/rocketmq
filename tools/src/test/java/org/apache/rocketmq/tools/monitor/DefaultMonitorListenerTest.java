@@ -19,6 +19,7 @@ package org.apache.rocketmq.tools.monitor;
 import java.util.Properties;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
 import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.common.protocol.body.ConsumeStatus;
 import org.apache.rocketmq.common.protocol.body.ConsumerRunningInfo;

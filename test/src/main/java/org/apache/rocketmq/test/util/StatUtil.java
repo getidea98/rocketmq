@@ -43,7 +43,7 @@ public class StatUtil {
     private static final int MAX_KEY_NUM = Integer.parseInt(System.getProperty("stat.util.key.max.num", "10000"));
     private static volatile ConcurrentMap<String, Invoke> invokeCache = new ConcurrentHashMap<>(64);
     private static volatile ConcurrentMap<String, Map<Long, SecondInvoke>> secondInvokeCache = new ConcurrentHashMap<>(
-        64);
+            64);
 
     private static final int STAT_WINDOW_SECONDS = Integer.parseInt(System.getProperty("stat.win.seconds", "60"));
     private static final String SPLITTER = "|";
@@ -97,8 +97,8 @@ public class StatUtil {
             String key = entry.getKey();
             Invoke invoke = entry.getValue();
             logger.warn("{}",
-                buildLog(key, invoke.topSecondPv.get(), invoke.totalPv.get(), invoke.failPv.get(), invoke.minRt.get(),
-                    invoke.maxRt.get(), invoke.sumRt.get()));
+                    buildLog(key, invoke.topSecondPv.get(), invoke.totalPv.get(), invoke.failPv.get(), invoke.minRt.get(),
+                            invoke.maxRt.get(), invoke.sumRt.get()));
         }
     }
 
@@ -144,7 +144,7 @@ public class StatUtil {
     }
 
     private static String buildLog(String key, long topSecondPv, long totalPv, long failPv, long minRt, long maxRt,
-        long sumRt) {
+                                   long sumRt) {
         StringBuilder sb = new StringBuilder();
         sb.append(SPLITTER);
         sb.append(key);
@@ -152,7 +152,7 @@ public class StatUtil {
         sb.append(topSecondPv);
         sb.append(SPLITTER);
         int tps = new BigDecimal(totalPv).divide(new BigDecimal(STAT_WINDOW_SECONDS),
-            ROUND_HALF_UP).intValue();
+                ROUND_HALF_UP).intValue();
         sb.append(tps);
         sb.append(SPLITTER);
         sb.append(totalPv);
@@ -162,7 +162,7 @@ public class StatUtil {
         sb.append(minRt);
         sb.append(SPLITTER);
         long avg = new BigDecimal(sumRt).divide(new BigDecimal(totalPv),
-            ROUND_HALF_UP).longValue();
+                ROUND_HALF_UP).longValue();
         sb.append(avg);
         sb.append(SPLITTER);
         sb.append(maxRt);
@@ -330,15 +330,15 @@ public class StatUtil {
         long now = nowSecond();
         AtomicLong oldSecond = invoke.second;
         if (oldSecond.get() == now) {
-            invoke.secondPv.addAndGet((int)totalPv);
+            invoke.secondPv.addAndGet((int) totalPv);
         } else {
             if (oldSecond.compareAndSet(oldSecond.get(), now)) {
                 if (invoke.secondPv.get() > invoke.topSecondPv.get()) {
                     invoke.topSecondPv.set(invoke.secondPv.get());
                 }
-                invoke.secondPv.set((int)totalPv);
+                invoke.secondPv.set((int) totalPv);
             } else {
-                invoke.secondPv.addAndGet((int)totalPv);
+                invoke.secondPv.addAndGet((int) totalPv);
             }
         }
     }
@@ -373,7 +373,7 @@ public class StatUtil {
         if (secondInvokeMap != null) {
             SecondInvoke secondInvoke = secondInvokeMap.get(nowSecond());
             if (secondInvoke != null) {
-                return (int)secondInvoke.total.get();
+                return (int) secondInvoke.total.get();
             }
         }
         Invoke invoke = invokeCache.get(key);
@@ -393,7 +393,7 @@ public class StatUtil {
         for (int i = 0; i < windowSeconds && i < list.size(); i++) {
             totalPv += list.get(i).total.get();
         }
-        return (int)totalPv;
+        return (int) totalPv;
     }
 
     public static int failPvInWindow(String key, int windowSeconds) {
@@ -402,7 +402,7 @@ public class StatUtil {
         for (int i = 0; i < windowSeconds && i < list.size(); i++) {
             failPv += list.get(i).fail.get();
         }
-        return (int)failPv;
+        return (int) failPv;
     }
 
     public static int topTpsInWindow(String key, int windowSeconds) {
@@ -414,7 +414,7 @@ public class StatUtil {
                 topTps = secondPv;
             }
         }
-        return (int)topTps;
+        return (int) topTps;
     }
 
     public static int avgRtInWindow(String key, int windowSeconds) {
@@ -429,8 +429,8 @@ public class StatUtil {
             return 0;
         }
         long avg = new BigDecimal(sumRt).divide(new BigDecimal(totalPv),
-            ROUND_HALF_UP).longValue();
-        return (int)avg;
+                ROUND_HALF_UP).longValue();
+        return (int) avg;
     }
 
     public static int maxRtInWindow(String key, int windowSeconds) {
@@ -442,7 +442,7 @@ public class StatUtil {
                 maxRt = list.get(i).maxRt.get();
             }
         }
-        return (int)maxRt;
+        return (int) maxRt;
     }
 
     public static int minRtInWindow(String key, int windowSeconds) {
@@ -454,7 +454,7 @@ public class StatUtil {
                 minRt = list.get(i).minRt.get();
             }
         }
-        return (int)minRt;
+        return (int) minRt;
     }
 
     private static List<SecondInvoke> secondInvokeList(String key, int windowSeconds) {

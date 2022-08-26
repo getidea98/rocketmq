@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
+
 import org.apache.log4j.Logger;
 import org.apache.rocketmq.common.admin.TopicStatsTable;
 import org.apache.rocketmq.common.protocol.body.ClusterInfo;
@@ -33,13 +34,13 @@ public class MQAdmin {
     private static Logger log = Logger.getLogger(MQAdmin.class);
 
     public static boolean createTopic(String nameSrvAddr, String clusterName, String topic,
-        int queueNum) {
+                                      int queueNum) {
         int defaultWaitTime = 5;
         return createTopic(nameSrvAddr, clusterName, topic, queueNum, defaultWaitTime);
     }
 
     public static boolean createTopic(String nameSrvAddr, String clusterName, String topic,
-        int queueNum, int waitTimeSec) {
+                                      int queueNum, int waitTimeSec) {
         boolean createResult = false;
         DefaultMQAdminExt mqAdminExt = new DefaultMQAdminExt();
         mqAdminExt.setInstanceName(UUID.randomUUID().toString());
@@ -85,12 +86,12 @@ public class MQAdmin {
         try {
             mqAdminExt.start();
             Set<String> masterSet = CommandUtil.fetchMasterAddrByClusterName(mqAdminExt,
-                clusterName);
+                    clusterName);
             for (String addr : masterSet) {
                 try {
                     mqAdminExt.createAndUpdateSubscriptionGroupConfig(addr, config);
                     log.info(String.format("create subscription group %s to %s success.\n", consumerId,
-                        addr));
+                            addr));
                 } catch (Exception e) {
                     e.printStackTrace();
                     Thread.sleep(1000 * 1);
@@ -145,12 +146,12 @@ public class MQAdmin {
         try {
             mqAdminExt.start();
             Set<String> masterSet = CommandUtil.fetchMasterAddrByClusterName(mqAdminExt,
-                clusterName);
+                    clusterName);
             for (String addr : masterSet) {
                 try {
 
                     System.out.printf("create subscription group %s to %s success.\n", consumerId,
-                        addr);
+                            addr);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Thread.sleep(1000 * 1);

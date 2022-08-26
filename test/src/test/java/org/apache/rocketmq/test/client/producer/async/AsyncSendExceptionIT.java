@@ -18,6 +18,7 @@
 package org.apache.rocketmq.test.client.producer.async;
 
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.MessageQueueSelector;

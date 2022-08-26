@@ -19,6 +19,7 @@ package org.apache.rocketmq.test.client.rmq;
 
 import java.util.List;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -45,12 +46,12 @@ public class RMQNormalProducer extends AbstractMQProducer {
     }
 
     public RMQNormalProducer(String nsAddr, String topic, String producerGroupName,
-        String producerInstanceName) {
+                             String producerInstanceName) {
         this(nsAddr, topic, producerGroupName, producerInstanceName, false);
     }
 
     public RMQNormalProducer(String nsAddr, String topic, String producerGroupName,
-        String producerInstanceName, boolean useTLS) {
+                             String producerInstanceName, boolean useTLS) {
         super(topic);
         this.producerGroupName = producerGroupName;
         this.producerInstanceName = producerInstanceName;

@@ -18,6 +18,7 @@ package org.apache.rocketmq.tools.command.connection;
 
 import java.util.Iterator;
 import java.util.Map.Entry;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -67,16 +68,16 @@ public class ConsumerConnectionSubCommand implements SubCommand {
             String group = commandLine.getOptionValue('g').trim();
 
             ConsumerConnection cc = commandLine.hasOption('b')
-                ? defaultMQAdminExt.examineConsumerConnectionInfo(group, commandLine.getOptionValue('b').trim())
-                : defaultMQAdminExt.examineConsumerConnectionInfo(group);
+                    ? defaultMQAdminExt.examineConsumerConnectionInfo(group, commandLine.getOptionValue('b').trim())
+                    : defaultMQAdminExt.examineConsumerConnectionInfo(group);
 
             System.out.printf("%-36s %-22s %-10s %s%n", "#ClientId", "#ClientAddr", "#Language", "#Version");
             for (Connection conn : cc.getConnectionSet()) {
                 System.out.printf("%-36s %-22s %-10s %s%n",
-                    conn.getClientId(),
-                    conn.getClientAddr(),
-                    conn.getLanguage(),
-                    MQVersion.getVersionDesc(conn.getVersion())
+                        conn.getClientId(),
+                        conn.getClientAddr(),
+                        conn.getLanguage(),
+                        MQVersion.getVersionDesc(conn.getVersion())
                 );
             }
 
@@ -87,8 +88,8 @@ public class ConsumerConnectionSubCommand implements SubCommand {
                 Entry<String, SubscriptionData> entry = it.next();
                 SubscriptionData sd = entry.getValue();
                 System.out.printf("%-20s %s%n",
-                    sd.getTopic(),
-                    sd.getSubString()
+                        sd.getTopic(),
+                        sd.getSubString()
                 );
             }
 

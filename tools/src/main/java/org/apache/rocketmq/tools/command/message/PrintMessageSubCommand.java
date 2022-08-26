@@ -19,6 +19,7 @@ package org.apache.rocketmq.tools.command.message;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Set;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -49,7 +50,7 @@ public class PrintMessageSubCommand implements SubCommand {
         for (MessageExt msg : msgs) {
             try {
                 System.out.printf("MSGID: %s %s BODY: %s%n", msg.getMsgId(), msg.toString(),
-                    printBody ? new String(msg.getBody(), charsetName) : "NOT PRINT BODY");
+                        printBody ? new String(msg.getBody(), charsetName) : "NOT PRINT BODY");
             } catch (UnsupportedEncodingException e) {
             }
         }
@@ -80,20 +81,20 @@ public class PrintMessageSubCommand implements SubCommand {
         options.addOption(opt);
 
         opt =
-            new Option("b", "beginTimestamp ", true,
-                "Begin timestamp[currentTimeMillis|yyyy-MM-dd#HH:mm:ss:SSS]");
+                new Option("b", "beginTimestamp ", true,
+                        "Begin timestamp[currentTimeMillis|yyyy-MM-dd#HH:mm:ss:SSS]");
         opt.setRequired(false);
         options.addOption(opt);
 
         opt =
-            new Option("e", "endTimestamp ", true,
-                "End timestamp[currentTimeMillis|yyyy-MM-dd#HH:mm:ss:SSS]");
+                new Option("e", "endTimestamp ", true,
+                        "End timestamp[currentTimeMillis|yyyy-MM-dd#HH:mm:ss:SSS]");
         opt.setRequired(false);
         options.addOption(opt);
 
         opt =
-            new Option("d", "printBody ", true,
-                "print body");
+                new Option("d", "printBody ", true,
+                        "print body");
         opt.setRequired(false);
         options.addOption(opt);
 
@@ -108,10 +109,10 @@ public class PrintMessageSubCommand implements SubCommand {
             String topic = commandLine.getOptionValue('t').trim();
 
             String charsetName =
-                !commandLine.hasOption('c') ? "UTF-8" : commandLine.getOptionValue('c').trim();
+                    !commandLine.hasOption('c') ? "UTF-8" : commandLine.getOptionValue('c').trim();
 
             String subExpression =
-                !commandLine.hasOption('s') ? "*" : commandLine.getOptionValue('s').trim();
+                    !commandLine.hasOption('s') ? "*" : commandLine.getOptionValue('s').trim();
 
             boolean printBody = !commandLine.hasOption('d') || Boolean.parseBoolean(commandLine.getOptionValue('d').trim());
 

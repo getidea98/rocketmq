@@ -327,7 +327,7 @@ class StatsBenchmarkBatchProducer {
     private final LinkedList<Long[]> snapshotList = new LinkedList<>();
 
     public Long[] createSnapshot() {
-        Long[] snap = new Long[] {
+        Long[] snap = new Long[]{
                 System.currentTimeMillis(),
                 this.sendRequestSuccessCount.longValue(),
                 this.sendRequestFailedCount.longValue(),

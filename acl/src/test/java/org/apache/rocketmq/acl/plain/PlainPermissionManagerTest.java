@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.rocketmq.acl.common.AclException;
 import org.apache.rocketmq.acl.common.AclUtils;
@@ -219,11 +220,11 @@ public class PlainPermissionManagerTest {
 
         PlainPermissionManager plainPermissionManager = new PlainPermissionManager();
 
-        String samefilePath = file.getAbsolutePath()+"/conf/acl/.";
-        String samefilePath2 = "/" +file.getAbsolutePath()+"/conf/acl";
-        String samefilePath3 = file.getAbsolutePath()+"/conf/acl/../"+file.getAbsolutePath();
-        String samefilePath4 = file.getAbsolutePath()+"/conf/acl///";
-        String samefilePath5 = file.getAbsolutePath()+"/conf/acl/./";
+        String samefilePath = file.getAbsolutePath() + "/conf/acl/.";
+        String samefilePath2 = "/" + file.getAbsolutePath() + "/conf/acl";
+        String samefilePath3 = file.getAbsolutePath() + "/conf/acl/../" + file.getAbsolutePath();
+        String samefilePath4 = file.getAbsolutePath() + "/conf/acl///";
+        String samefilePath5 = file.getAbsolutePath() + "/conf/acl/./";
 
         int size = plainPermissionManager.getDataVersionMap().size();
 

@@ -72,7 +72,7 @@ public class Validators {
 
         if (msg.getBody().length > defaultMQProducer.getMaxMessageSize()) {
             throw new MQClientException(ResponseCode.MESSAGE_ILLEGAL,
-                "the message body size over max value, MAX: " + defaultMQProducer.getMaxMessageSize());
+                    "the message body size over max value, MAX: " + defaultMQProducer.getMaxMessageSize());
         }
     }
 
@@ -83,7 +83,7 @@ public class Validators {
 
         if (topic.length() > TOPIC_MAX_LENGTH) {
             throw new MQClientException(
-                String.format("The specified topic is longer than topic max length %d.", TOPIC_MAX_LENGTH), null);
+                    String.format("The specified topic is longer than topic max length %d.", TOPIC_MAX_LENGTH), null);
         }
 
         if (isTopicOrGroupIllegal(topic)) {

@@ -657,7 +657,7 @@ public class MessageStoreConfig {
      */
     public boolean isTransientStorePoolEnable() {
         return transientStorePoolEnable && FlushDiskType.ASYNC_FLUSH == getFlushDiskType()
-            && BrokerRole.SLAVE != getBrokerRole();
+                && BrokerRole.SLAVE != getBrokerRole();
     }
 
     public void setTransientStorePoolEnable(final boolean transientStorePoolEnable) {
@@ -719,6 +719,7 @@ public class MessageStoreConfig {
     public void setReadOnlyCommitLogStorePaths(String readOnlyCommitLogStorePaths) {
         this.readOnlyCommitLogStorePaths = readOnlyCommitLogStorePaths;
     }
+
     public String getdLegerGroup() {
         return dLegerGroup;
     }

@@ -17,6 +17,7 @@
 package org.apache.rocketmq.remoting.protocol;
 
 import java.util.HashMap;
+
 import org.apache.rocketmq.remoting.CommandCustomHeader;
 import org.apache.rocketmq.remoting.exception.RemotingCommandException;
 import org.junit.Assert;
@@ -74,7 +75,7 @@ public class RocketMQSerializableTest {
         //org.apache.rocketmq.common.protocol.RequestCode.REGISTER_BROKER
         int code = 103;
         RemotingCommand cmd = RemotingCommand.createRequestCommand(code,
-            new SampleCommandCustomHeader());
+                new SampleCommandCustomHeader());
         cmd.setSerializeTypeCurrentRPC(SerializeType.ROCKETMQ);
         cmd.setRemark("Sample Remark");
 
@@ -118,7 +119,7 @@ public class RocketMQSerializableTest {
         //org.apache.rocketmq.common.protocol.RequestCode.REGISTER_BROKER
         int code = 103;
         RemotingCommand cmd = RemotingCommand.createRequestCommand(code,
-            new SampleCommandCustomHeader());
+                new SampleCommandCustomHeader());
         cmd.setSerializeTypeCurrentRPC(SerializeType.ROCKETMQ);
         cmd.addExtField("key", "value");
 
@@ -174,7 +175,7 @@ public class RocketMQSerializableTest {
 
     private int parseToInt(byte[] array, int index) {
         return array[index] * 16777216 + array[++index] * 65536 + array[++index] * 256
-            + array[++index];
+                + array[++index];
     }
 
     public static class MyHeader1 implements CommandCustomHeader {

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
 import org.apache.rocketmq.broker.BrokerController;
 import org.apache.rocketmq.common.ServiceThread;
 import org.apache.rocketmq.common.SystemClock;
@@ -35,7 +36,7 @@ public class PullRequestHoldService extends ServiceThread {
     protected final BrokerController brokerController;
     private final SystemClock systemClock = new SystemClock();
     protected ConcurrentMap<String/* topic@queueId */, ManyPullRequest> pullRequestTable =
-        new ConcurrentHashMap<String, ManyPullRequest>(1024);
+            new ConcurrentHashMap<String, ManyPullRequest>(1024);
 
     public PullRequestHoldService(final BrokerController brokerController) {
         this.brokerController = brokerController;
@@ -114,7 +115,7 @@ public class PullRequestHoldService extends ServiceThread {
     }
 
     public void notifyMessageArriving(final String topic, final int queueId, final long maxOffset, final Long tagsCode,
-        long msgStoreTime, byte[] filterBitMap, Map<String, String> properties) {
+                                      long msgStoreTime, byte[] filterBitMap, Map<String, String> properties) {
         String key = this.buildKey(topic, queueId);
         ManyPullRequest mpr = this.pullRequestTable.get(key);
         if (mpr != null) {
@@ -130,7 +131,7 @@ public class PullRequestHoldService extends ServiceThread {
 
                     if (newestOffset > request.getPullFromThisOffset()) {
                         boolean match = request.getMessageFilter().isMatchedByConsumeQueue(tagsCode,
-                            new ConsumeQueueExt.CqExtUnit(tagsCode, msgStoreTime, filterBitMap));
+                                new ConsumeQueueExt.CqExtUnit(tagsCode, msgStoreTime, filterBitMap));
                         // match by bit map, need eval again when properties is not null.
                         if (match && properties != null) {
                             match = request.getMessageFilter().isMatchedByCommitLog(null, properties);
@@ -139,7 +140,7 @@ public class PullRequestHoldService extends ServiceThread {
                         if (match) {
                             try {
                                 this.brokerController.getPullMessageProcessor().executeRequestWhenWakeup(request.getClientChannel(),
-                                    request.getRequestCommand());
+                                        request.getRequestCommand());
                             } catch (Throwable e) {
                                 log.error("execute request when wakeup failed.", e);
                             }
@@ -150,7 +151,7 @@ public class PullRequestHoldService extends ServiceThread {
                     if (System.currentTimeMillis() >= (request.getSuspendTimestamp() + request.getTimeoutMillis())) {
                         try {
                             this.brokerController.getPullMessageProcessor().executeRequestWhenWakeup(request.getClientChannel(),
-                                request.getRequestCommand());
+                                    request.getRequestCommand());
                         } catch (Throwable e) {
                             log.error("execute request when wakeup failed.", e);
                         }

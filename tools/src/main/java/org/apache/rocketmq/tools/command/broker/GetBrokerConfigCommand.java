@@ -63,7 +63,7 @@ public class GetBrokerConfigCommand implements SubCommand {
 
     @Override
     public void execute(final CommandLine commandLine, final Options options,
-        final RPCHook rpcHook) throws SubCommandException {
+                        final RPCHook rpcHook) throws SubCommandException {
         DefaultMQAdminExt defaultMQAdminExt = new DefaultMQAdminExt(rpcHook);
 
         defaultMQAdminExt.setInstanceName(Long.toString(System.currentTimeMillis()));
@@ -75,15 +75,15 @@ public class GetBrokerConfigCommand implements SubCommand {
                 defaultMQAdminExt.start();
 
                 getAndPrint(defaultMQAdminExt,
-                    String.format("============%s============\n", brokerAddr),
-                    brokerAddr);
+                        String.format("============%s============\n", brokerAddr),
+                        brokerAddr);
 
             } else if (commandLine.hasOption('c')) {
                 String clusterName = commandLine.getOptionValue('c').trim();
                 defaultMQAdminExt.start();
 
                 Map<String, List<String>> masterAndSlaveMap
-                    = CommandUtil.fetchMasterAndSlaveDistinguish(defaultMQAdminExt, clusterName);
+                        = CommandUtil.fetchMasterAndSlaveDistinguish(defaultMQAdminExt, clusterName);
 
                 for (Entry<String, List<String>> masterAndSlaveEntry : masterAndSlaveMap.entrySet()) {
 
@@ -111,9 +111,9 @@ public class GetBrokerConfigCommand implements SubCommand {
     }
 
     protected void getAndPrint(final MQAdminExt defaultMQAdminExt, final String printPrefix, final String addr)
-        throws InterruptedException, RemotingConnectException,
-        UnsupportedEncodingException, RemotingTimeoutException,
-        MQBrokerException, RemotingSendRequestException {
+            throws InterruptedException, RemotingConnectException,
+            UnsupportedEncodingException, RemotingTimeoutException,
+            MQBrokerException, RemotingSendRequestException {
 
         System.out.print(printPrefix);
 

@@ -20,6 +20,7 @@ package org.apache.rocketmq.tools.command.namesrv;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -54,7 +55,7 @@ public class UpdateNamesrvConfigCommand implements SubCommand {
 
     @Override
     public void execute(final CommandLine commandLine, final Options options,
-        final RPCHook rpcHook) throws SubCommandException {
+                        final RPCHook rpcHook) throws SubCommandException {
         DefaultMQAdminExt defaultMQAdminExt = new DefaultMQAdminExt(rpcHook);
         defaultMQAdminExt.setInstanceName(Long.toString(System.currentTimeMillis()));
         try {
@@ -81,7 +82,7 @@ public class UpdateNamesrvConfigCommand implements SubCommand {
             defaultMQAdminExt.updateNameServerConfig(properties, serverList);
 
             System.out.printf("update name server config success!%s\n%s : %s\n",
-                serverList == null ? "" : serverList, key, value);
+                    serverList == null ? "" : serverList, key, value);
         } catch (Exception e) {
             throw new SubCommandException(this.getClass().getSimpleName() + " command failed", e);
         } finally {

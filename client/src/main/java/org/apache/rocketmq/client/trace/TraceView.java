@@ -20,6 +20,7 @@ package org.apache.rocketmq.client.trace;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.rocketmq.common.message.MessageExt;
 
 public class TraceView {

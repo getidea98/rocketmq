@@ -150,9 +150,9 @@ public class PullConsumerImpl implements PullConsumer {
                     long offset = localMessageCache.nextPullOffset(mq);
 
                     PullResult pullResult = consumer.pull(mq, "*",
-                        offset, localMessageCache.nextPullBatchNums());
+                            offset, localMessageCache.nextPullBatchNums());
                     ProcessQueue pq = rocketmqPullConsumer.getDefaultMQPullConsumerImpl().getRebalanceImpl()
-                        .getProcessQueueTable().get(mq);
+                            .getProcessQueueTable().get(mq);
                     switch (pullResult.getPullStatus()) {
                         case FOUND:
                             if (pq != null) {

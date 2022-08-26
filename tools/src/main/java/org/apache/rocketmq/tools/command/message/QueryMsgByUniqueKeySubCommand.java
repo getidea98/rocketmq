@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -50,8 +51,7 @@ public class QueryMsgByUniqueKeySubCommand implements SubCommand {
             defaultMQAdminExt.setInstanceName(Long.toString(System.currentTimeMillis()));
             try {
                 defaultMQAdminExt.start();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new SubCommandException(this.getClass().getSimpleName() + " command failed", e);
             }
             return defaultMQAdminExt;
@@ -172,7 +172,7 @@ public class QueryMsgByUniqueKeySubCommand implements SubCommand {
     public void execute(CommandLine commandLine, Options options, RPCHook rpcHook) throws SubCommandException {
 
         try {
-            defaultMQAdminExt =  createMQAdminExt(rpcHook);
+            defaultMQAdminExt = createMQAdminExt(rpcHook);
 
             final String msgId = commandLine.getOptionValue('i').trim();
             final String topic = commandLine.getOptionValue('t').trim();
@@ -181,7 +181,7 @@ public class QueryMsgByUniqueKeySubCommand implements SubCommand {
                 final String consumerGroup = commandLine.getOptionValue('g').trim();
                 final String clientId = commandLine.getOptionValue('d').trim();
                 ConsumeMessageDirectlyResult result =
-                    defaultMQAdminExt.consumeMessageDirectly(consumerGroup, clientId, topic, msgId);
+                        defaultMQAdminExt.consumeMessageDirectly(consumerGroup, clientId, topic, msgId);
                 System.out.printf("%s", result);
             } else {
                 queryById(defaultMQAdminExt, topic, msgId, showAll);

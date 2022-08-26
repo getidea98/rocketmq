@@ -76,7 +76,7 @@ public class RebalancePushImplTest {
     @Test
     public void testMessageQueueChanged_CountThreshold() {
         RebalancePushImpl rebalancePush = new RebalancePushImpl(consumerGroup, MessageModel.CLUSTERING,
-            new AllocateMessageQueueAveragely(), mqClientInstance, defaultMQPushConsumer);
+                new AllocateMessageQueueAveragely(), mqClientInstance, defaultMQPushConsumer);
         init(rebalancePush);
 
         // Just set pullThresholdForQueue
@@ -124,7 +124,7 @@ public class RebalancePushImplTest {
     @Test
     public void testMessageQueueChanged_SizeThreshold() {
         RebalancePushImpl rebalancePush = new RebalancePushImpl(consumerGroup, MessageModel.CLUSTERING,
-            new AllocateMessageQueueAveragely(), mqClientInstance, defaultMQPushConsumer);
+                new AllocateMessageQueueAveragely(), mqClientInstance, defaultMQPushConsumer);
         init(rebalancePush);
 
         // Just set pullThresholdSizeForQueue
@@ -149,7 +149,7 @@ public class RebalancePushImplTest {
     @Test
     public void testMessageQueueChanged_ConsumerRuntimeInfo() throws MQClientException {
         RebalancePushImpl rebalancePush = new RebalancePushImpl(consumerGroup, MessageModel.CLUSTERING,
-            new AllocateMessageQueueAveragely(), mqClientInstance, defaultMQPushConsumer);
+                new AllocateMessageQueueAveragely(), mqClientInstance, defaultMQPushConsumer);
         init(rebalancePush);
 
         defaultMQPushConsumer.getDefaultMQPushConsumer().setPullThresholdSizeForQueue(1024);

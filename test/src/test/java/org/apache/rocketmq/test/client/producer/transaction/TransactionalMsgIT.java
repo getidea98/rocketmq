@@ -32,6 +32,7 @@ import org.apache.rocketmq.test.util.MQWait;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import static com.google.common.truth.Truth.assertThat;
 
 import java.util.List;
@@ -94,7 +95,7 @@ public class TransactionalMsgIT extends BaseConf {
 
         @Override
         public LocalTransactionState executeLocalTransaction(Message msg, Object arg) {
-            Pair<Boolean, LocalTransactionState> transactionHandle = (Pair<Boolean,LocalTransactionState>) arg;
+            Pair<Boolean, LocalTransactionState> transactionHandle = (Pair<Boolean, LocalTransactionState>) arg;
             if (transactionHandle.getObject1()) {
                 return transactionHandle.getObject2();
             } else {

@@ -18,6 +18,7 @@ package org.apache.rocketmq.client.trace;
 
 import org.apache.rocketmq.client.AccessChannel;
 import org.apache.rocketmq.client.exception.MQClientException;
+
 import java.io.IOException;
 
 /**
@@ -28,6 +29,7 @@ public interface TraceDispatcher {
         PRODUCE,
         CONSUME
     }
+
     /**
      * Initialize asynchronous transfer data module
      */
@@ -35,6 +37,7 @@ public interface TraceDispatcher {
 
     /**
      * Append the transfering data
+     *
      * @param ctx data information
      * @return
      */

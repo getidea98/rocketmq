@@ -24,7 +24,9 @@ import io.openmessaging.OMSBuiltinKeys;
 import io.openmessaging.consumer.PullConsumer;
 import io.openmessaging.rocketmq.config.ClientConfig;
 import io.openmessaging.rocketmq.domain.NonStandardKeys;
+
 import java.lang.reflect.Field;
+
 import org.apache.rocketmq.client.consumer.DefaultMQPullConsumer;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.junit.Before;
@@ -49,7 +51,7 @@ public class PullConsumerImplTest {
     @Before
     public void init() throws NoSuchFieldException, IllegalAccessException {
         final MessagingAccessPoint messagingAccessPoint = OMS
-            .getMessagingAccessPoint("oms:rocketmq://IP1:9876,IP2:9876/namespace");
+                .getMessagingAccessPoint("oms:rocketmq://IP1:9876,IP2:9876/namespace");
 
         consumer = messagingAccessPoint.createPullConsumer(OMS.newKeyValue().put(OMSBuiltinKeys.CONSUMER_ID, "TestGroup"));
         consumer.attachQueue(queueName);
@@ -72,7 +74,7 @@ public class PullConsumerImplTest {
 
     @Test
     public void testPoll() {
-        final byte[] testBody = new byte[] {'a', 'b'};
+        final byte[] testBody = new byte[]{'a', 'b'};
         MessageExt consumedMsg = new MessageExt();
         consumedMsg.setMsgId("NewMsgId");
         consumedMsg.setBody(testBody);

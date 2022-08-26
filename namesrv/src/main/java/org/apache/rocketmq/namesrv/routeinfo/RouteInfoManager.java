@@ -94,14 +94,14 @@ public class RouteInfoManager {
                 this.lock.writeLock().lockInterruptibly();
                 Set<String> brokerNames = this.clusterAddrTable.get(clusterName);
                 if (brokerNames != null
-                    && !brokerNames.isEmpty()) {
+                        && !brokerNames.isEmpty()) {
                     Map<String, QueueData> queueDataMap = this.topicQueueTable.get(topic);
                     if (queueDataMap != null) {
                         for (String brokerName : brokerNames) {
                             final QueueData removedQD = queueDataMap.remove(brokerName);
                             if (removedQD != null) {
                                 log.info("deleteTopic, remove one broker's topic {} {} {}", brokerName, topic,
-                                    removedQD);
+                                        removedQD);
                             }
                         }
                         if (queueDataMap.isEmpty()) {

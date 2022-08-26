@@ -20,6 +20,7 @@ import java.nio.ByteBuffer;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import org.apache.rocketmq.common.UtilAll;
 
 public class MessageClientIDSetter {
@@ -118,7 +119,7 @@ public class MessageClientIDSetter {
         if (current >= nextStartTime) {
             setStartTime(current);
         }
-        int diff = (int)(current - startTime);
+        int diff = (int) (current - startTime);
         if (diff < 0 && diff > -1000_000) {
             // may cause by NTP
             diff = 0;

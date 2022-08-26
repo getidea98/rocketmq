@@ -133,12 +133,12 @@ public class RouteInfoManagerTestBase {
     }
 
     protected RegisterBrokerResult registerBrokerWithTopicConfig(RouteInfoManager routeInfoManager, String clusterName,
-                                                 String brokerAddr,
-                                                 String brokerName,
-                                                 long brokerId,
-                                                 String haServerAddr,
-                                                 ConcurrentMap<String, TopicConfig> topicConfigTable,
-                                                 List<String> filterServerAddr) {
+                                                                 String brokerAddr,
+                                                                 String brokerName,
+                                                                 long brokerId,
+                                                                 String haServerAddr,
+                                                                 ConcurrentMap<String, TopicConfig> topicConfigTable,
+                                                                 List<String> filterServerAddr) {
 
         TopicConfigSerializeWrapper topicConfigSerializeWrapper = new TopicConfigSerializeWrapper();
         topicConfigSerializeWrapper.setTopicConfigTable(topicConfigTable);

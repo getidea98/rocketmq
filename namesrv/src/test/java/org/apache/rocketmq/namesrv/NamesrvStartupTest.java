@@ -18,6 +18,7 @@
 package org.apache.rocketmq.namesrv;
 
 import java.util.Properties;
+
 import org.apache.commons.cli.Options;
 import org.junit.Assert;
 import org.junit.Before;

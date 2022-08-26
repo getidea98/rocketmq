@@ -29,6 +29,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import org.apache.rocketmq.client.ClientConfig;
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
@@ -88,8 +89,8 @@ public class DefaultMQProducerTest {
         producer = new DefaultMQProducer(producerGroupTemp);
         producer.setNamesrvAddr("127.0.0.1:9876");
         producer.setCompressMsgBodyOverHowmuch(16);
-        message = new Message(topic, new byte[] {'a'});
-        zeroMsg = new Message(topic, new byte[] {});
+        message = new Message(topic, new byte[]{'a'});
+        zeroMsg = new Message(topic, new byte[]{});
         bigMessage = new Message(topic, "This is a very huge message!".getBytes());
 
         producer.start();
@@ -105,10 +106,10 @@ public class DefaultMQProducerTest {
         producer.getDefaultMQProducerImpl().getMqClientFactory().registerProducer(producerGroupTemp, producer.getDefaultMQProducerImpl());
 
         when(mQClientAPIImpl.sendMessage(anyString(), anyString(), any(Message.class), any(SendMessageRequestHeader.class), anyLong(), any(CommunicationMode.class),
-            nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class))).thenCallRealMethod();
+                nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class))).thenCallRealMethod();
         when(mQClientAPIImpl.sendMessage(anyString(), anyString(), any(Message.class), any(SendMessageRequestHeader.class), anyLong(), any(CommunicationMode.class),
-            nullable(SendCallback.class), nullable(TopicPublishInfo.class), nullable(MQClientInstance.class), anyInt(), nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class)))
-            .thenReturn(createSendResult(SendStatus.SEND_OK));
+                nullable(SendCallback.class), nullable(TopicPublishInfo.class), nullable(MQClientInstance.class), anyInt(), nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class)))
+                .thenReturn(createSendResult(SendStatus.SEND_OK));
     }
 
     @After
@@ -229,7 +230,7 @@ public class DefaultMQProducerTest {
         countDownLatch.await(3000L, TimeUnit.MILLISECONDS);
         assertThat(cc.get()).isEqualTo(5);
     }
-    
+
     @Test
     public void testBatchSendMessageAsync()
             throws RemotingException, MQClientException, InterruptedException, MQBrokerException {
@@ -358,7 +359,7 @@ public class DefaultMQProducerTest {
         producer.setCallbackExecutor(customized);
 
         NettyRemotingClient remotingClient = (NettyRemotingClient) producer.getDefaultMQProducerImpl()
-            .getMqClientFactory().getMQClientAPIImpl().getRemotingClient();
+                .getMqClientFactory().getMQClientAPIImpl().getRemotingClient();
 
         assertThat(remotingClient.getCallbackExecutor()).isEqualTo(customized);
     }
@@ -368,7 +369,8 @@ public class DefaultMQProducerTest {
         when(mQClientAPIImpl.getTopicRouteInfoFromNameServer(anyString(), anyLong())).thenReturn(createTopicRoute());
         final AtomicBoolean finish = new AtomicBoolean(false);
         new Thread(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 ConcurrentHashMap<String, RequestResponseFuture> responseMap = RequestFutureHolder.getInstance().getRequestFutureTable();
                 assertThat(responseMap).isNotNull();
                 while (!finish.get()) {
@@ -386,7 +388,7 @@ public class DefaultMQProducerTest {
         Message result = producer.request(message, 3 * 1000L);
         finish.getAndSet(true);
         assertThat(result.getTopic()).isEqualTo("FooBar");
-        assertThat(result.getBody()).isEqualTo(new byte[] {'a'});
+        assertThat(result.getBody()).isEqualTo(new byte[]{'a'});
     }
 
     @Test(expected = RequestTimeoutException.class)
@@ -400,14 +402,16 @@ public class DefaultMQProducerTest {
         when(mQClientAPIImpl.getTopicRouteInfoFromNameServer(anyString(), anyLong())).thenReturn(createTopicRoute());
         final CountDownLatch countDownLatch = new CountDownLatch(1);
         RequestCallback requestCallback = new RequestCallback() {
-            @Override public void onSuccess(Message message) {
+            @Override
+            public void onSuccess(Message message) {
                 assertThat(message.getTopic()).isEqualTo("FooBar");
-                assertThat(message.getBody()).isEqualTo(new byte[] {'a'});
+                assertThat(message.getBody()).isEqualTo(new byte[]{'a'});
                 assertThat(message.getFlag()).isEqualTo(1);
                 countDownLatch.countDown();
             }
 
-            @Override public void onException(Throwable e) {
+            @Override
+            public void onException(Throwable e) {
             }
         };
         producer.request(message, requestCallback, 3 * 1000L);
@@ -427,11 +431,13 @@ public class DefaultMQProducerTest {
         final AtomicInteger cc = new AtomicInteger(0);
         final CountDownLatch countDownLatch = new CountDownLatch(1);
         RequestCallback requestCallback = new RequestCallback() {
-            @Override public void onSuccess(Message message) {
+            @Override
+            public void onSuccess(Message message) {
 
             }
 
-            @Override public void onException(Throwable e) {
+            @Override
+            public void onException(Throwable e) {
                 cc.incrementAndGet();
                 countDownLatch.countDown();
             }

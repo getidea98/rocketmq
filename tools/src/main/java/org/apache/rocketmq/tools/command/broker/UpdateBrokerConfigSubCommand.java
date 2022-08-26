@@ -18,6 +18,7 @@ package org.apache.rocketmq.tools.command.broker;
 
 import java.util.Properties;
 import java.util.Set;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -88,7 +89,7 @@ public class UpdateBrokerConfigSubCommand implements SubCommand {
                 defaultMQAdminExt.start();
 
                 Set<String> masterSet =
-                    CommandUtil.fetchMasterAddrByClusterName(defaultMQAdminExt, clusterName);
+                        CommandUtil.fetchMasterAddrByClusterName(defaultMQAdminExt, clusterName);
                 for (String brokerAddr : masterSet) {
                     try {
                         defaultMQAdminExt.updateBrokerConfig(brokerAddr, properties);

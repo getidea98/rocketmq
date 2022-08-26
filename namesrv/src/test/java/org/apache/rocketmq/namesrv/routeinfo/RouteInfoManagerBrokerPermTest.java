@@ -60,8 +60,8 @@ public class RouteInfoManagerBrokerPermTest extends RouteInfoManagerTestBase {
 
     @Test
     public void testAddWritePermOfBrokerByLock() throws Exception {
-        String brokerName = getBrokerName(brokerPrefix,0);
-        String topicName = getTopicName(topicPrefix,0);
+        String brokerName = getBrokerName(brokerPrefix, 0);
+        String topicName = getTopicName(topicPrefix, 0);
 
 
         QueueData qd = new QueueData();
@@ -86,8 +86,8 @@ public class RouteInfoManagerBrokerPermTest extends RouteInfoManagerTestBase {
 
     @Test
     public void testWipeWritePermOfBrokerByLock() throws Exception {
-        String brokerName = getBrokerName(brokerPrefix,0);
-        String topicName = getTopicName(topicPrefix,0);
+        String brokerName = getBrokerName(brokerPrefix, 0);
+        String topicName = getTopicName(topicPrefix, 0);
 
         QueueData qd = new QueueData();
         qd.setPerm(PermName.PERM_READ);

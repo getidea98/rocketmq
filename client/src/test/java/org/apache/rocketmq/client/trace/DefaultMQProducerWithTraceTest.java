@@ -88,7 +88,7 @@ public class DefaultMQProducerWithTraceTest {
         producer.setNamesrvAddr("127.0.0.1:9876");
         normalProducer.setNamesrvAddr("127.0.0.1:9877");
         customTraceTopicproducer.setNamesrvAddr("127.0.0.1:9878");
-        message = new Message(topic, new byte[] {'a', 'b', 'c'});
+        message = new Message(topic, new byte[]{'a', 'b', 'c'});
         asyncTraceDispatcher = (AsyncTraceDispatcher) producer.getTraceDispatcher();
         asyncTraceDispatcher.setTraceTopicName(customerTraceTopic);
         asyncTraceDispatcher.getHostProducer();
@@ -112,10 +112,10 @@ public class DefaultMQProducerWithTraceTest {
         producer.getDefaultMQProducerImpl().getMqClientFactory().registerProducer(producerGroupTemp, producer.getDefaultMQProducerImpl());
 
         when(mQClientAPIImpl.sendMessage(anyString(), anyString(), any(Message.class), any(SendMessageRequestHeader.class), anyLong(), any(CommunicationMode.class),
-            nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class))).thenCallRealMethod();
+                nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class))).thenCallRealMethod();
         when(mQClientAPIImpl.sendMessage(anyString(), anyString(), any(Message.class), any(SendMessageRequestHeader.class), anyLong(), any(CommunicationMode.class),
-            nullable(SendCallback.class), nullable(TopicPublishInfo.class), nullable(MQClientInstance.class), anyInt(), nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class)))
-            .thenReturn(createSendResult(SendStatus.SEND_OK));
+                nullable(SendCallback.class), nullable(TopicPublishInfo.class), nullable(MQClientInstance.class), anyInt(), nullable(SendMessageContext.class), any(DefaultMQProducerImpl.class)))
+                .thenReturn(createSendResult(SendStatus.SEND_OK));
 
     }
 
@@ -144,7 +144,7 @@ public class DefaultMQProducerWithTraceTest {
 
     }
 
-    
+
     @Test
     public void testProducerWithTraceTLS() {
         DefaultMQProducer producer = new DefaultMQProducer(producerGroupTemp, true);
@@ -152,7 +152,7 @@ public class DefaultMQProducerWithTraceTest {
         AsyncTraceDispatcher asyncTraceDispatcher = (AsyncTraceDispatcher) producer.getTraceDispatcher();
         Assert.assertTrue(asyncTraceDispatcher.getTraceProducer().isUseTLS());
     }
-    
+
     @After
     public void terminate() {
         producer.shutdown();

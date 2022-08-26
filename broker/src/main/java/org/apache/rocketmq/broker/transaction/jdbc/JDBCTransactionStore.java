@@ -27,6 +27,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
+
 import org.apache.rocketmq.broker.transaction.TransactionRecord;
 import org.apache.rocketmq.broker.transaction.TransactionStore;
 import org.apache.rocketmq.common.MixAll;
@@ -53,7 +54,7 @@ public class JDBCTransactionStore implements TransactionStore {
 
             try {
                 this.connection =
-                    DriverManager.getConnection(this.jdbcTransactionStoreConfig.getJdbcURL(), props);
+                        DriverManager.getConnection(this.jdbcTransactionStoreConfig.getJdbcURL(), props);
 
                 this.connection.setAutoCommit(false);
 
@@ -74,7 +75,7 @@ public class JDBCTransactionStore implements TransactionStore {
         try {
             Class.forName(this.jdbcTransactionStoreConfig.getJdbcDriverClass()).getDeclaredConstructor().newInstance();
             log.info("Loaded the appropriate driver, {}",
-                this.jdbcTransactionStoreConfig.getJdbcDriverClass());
+                    this.jdbcTransactionStoreConfig.getJdbcDriverClass());
             return true;
         } catch (Exception e) {
             log.info("Loaded the appropriate driver Exception", e);

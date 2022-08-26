@@ -79,6 +79,7 @@ public class ConsumeMessageOrderlyServiceTest {
     private MQClientAPIImpl mQClientAPIImpl;
     private PullAPIWrapper pullAPIWrapper;
     private RebalancePushImpl rebalancePushImpl;
+
     @Before
     public void init() throws Exception {
         ConcurrentMap<String, MQClientInstance> factoryTable = (ConcurrentMap<String, MQClientInstance>) FieldUtils.readDeclaredField(MQClientManager.getInstance(), "factoryTable", true);
@@ -140,7 +141,7 @@ public class ConsumeMessageOrderlyServiceTest {
                         messageClientExt.setTopic(topic);
                         messageClientExt.setQueueId(0);
                         messageClientExt.setMsgId("123");
-                        messageClientExt.setBody(new byte[] {'a'});
+                        messageClientExt.setBody(new byte[]{'a'});
                         messageClientExt.setOffsetMsgId("234");
                         messageClientExt.setBornHost(new InetSocketAddress(8080));
                         messageClientExt.setStoreHost(new InetSocketAddress(8080));

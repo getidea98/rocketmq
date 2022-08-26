@@ -30,6 +30,7 @@ import io.openmessaging.storage.dledger.store.file.MmapFile;
 import io.openmessaging.storage.dledger.store.file.MmapFileList;
 import io.openmessaging.storage.dledger.store.file.SelectMmapBufferResult;
 import io.openmessaging.storage.dledger.utils.DLedgerUtils;
+
 import java.net.Inet6Address;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -37,6 +38,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
 import org.apache.rocketmq.common.UtilAll;
 import org.apache.rocketmq.common.message.MessageAccessor;
 import org.apache.rocketmq.common.message.MessageConst;
@@ -190,10 +192,10 @@ public class DLedgerCommitLog extends CommitLog {
 
     @Override
     public int deleteExpiredFile(
-        final long expiredTime,
-        final int deleteFilesInterval,
-        final long intervalForcibly,
-        final boolean cleanImmediately
+            final long expiredTime,
+            final int deleteFilesInterval,
+            final long intervalForcibly,
+            final boolean cleanImmediately
     ) {
         if (mappedFileQueue.getMappedFiles().isEmpty()) {
             refreshConfig();
@@ -338,7 +340,7 @@ public class DLedgerCommitLog extends CommitLog {
 
     @Override
     public DispatchRequest checkMessageAndReturnSize(ByteBuffer byteBuffer, final boolean checkCRC,
-        final boolean readBody) {
+                                                     final boolean readBody) {
         if (isInrecoveringOldCommitlog) {
             return super.checkMessageAndReturnSize(byteBuffer, checkCRC, readBody);
         }
@@ -389,7 +391,7 @@ public class DLedgerCommitLog extends CommitLog {
 
         //should be consistent with the old version
         if (tranType == MessageSysFlag.TRANSACTION_NOT_TYPE
-            || tranType == MessageSysFlag.TRANSACTION_COMMIT_TYPE) {
+                || tranType == MessageSysFlag.TRANSACTION_COMMIT_TYPE) {
             // Delay Delivery
             if (msg.getDelayTimeLevel() > 0) {
                 if (msg.getDelayTimeLevel() > this.defaultMessageStore.getScheduleMessageService().getMaxDelayLevel()) {
@@ -808,7 +810,7 @@ public class DLedgerCommitLog extends CommitLog {
              * Serialize message
              */
             final byte[] propertiesData =
-                msgInner.getPropertiesString() == null ? null : msgInner.getPropertiesString().getBytes(MessageDecoder.CHARSET_UTF8);
+                    msgInner.getPropertiesString() == null ? null : msgInner.getPropertiesString().getBytes(MessageDecoder.CHARSET_UTF8);
 
             final int propertiesLength = propertiesData == null ? 0 : propertiesData.length;
 
@@ -829,7 +831,7 @@ public class DLedgerCommitLog extends CommitLog {
             // Exceeds the maximum message
             if (bodyLength > this.maxMessageBodySize) {
                 DLedgerCommitLog.log.warn("message body size exceeded, msg total size: " + msgLen + ", msg body size: " + bodyLength
-                    + ", maxMessageBodySize: " + this.maxMessageBodySize);
+                        + ", maxMessageBodySize: " + this.maxMessageBodySize);
                 return new EncodeResult(AppendMessageStatus.MESSAGE_SIZE_EXCEEDED, null, key);
             }
             // Initialization of storage space
@@ -890,7 +892,7 @@ public class DLedgerCommitLog extends CommitLog {
             int totalLength = messagesByteBuff.limit();
             if (totalLength > this.maxMessageBodySize) {
                 CommitLog.log.warn("message body size exceeded, msg body size: " + totalLength
-                    + ", maxMessageBodySize: " + this.maxMessageBodySize);
+                        + ", maxMessageBodySize: " + this.maxMessageBodySize);
                 throw new RuntimeException("message size exceeded");
             }
 

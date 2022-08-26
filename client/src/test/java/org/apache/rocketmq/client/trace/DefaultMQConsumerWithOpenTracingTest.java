@@ -20,6 +20,7 @@ package org.apache.rocketmq.client.trace;
 import io.opentracing.mock.MockSpan;
 import io.opentracing.mock.MockTracer;
 import io.opentracing.tag.Tags;
+
 import java.io.ByteArrayOutputStream;
 import java.net.InetSocketAddress;
 import java.util.Collections;
@@ -32,6 +33,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.PullCallback;
@@ -110,29 +112,29 @@ public class DefaultMQConsumerWithOpenTracingTest {
         factoryTable.clear();
 
         when(mQClientAPIImpl.pullMessage(anyString(), any(PullMessageRequestHeader.class),
-            anyLong(), any(CommunicationMode.class), nullable(PullCallback.class)))
-            .thenAnswer(new Answer<PullResult>() {
-                @Override
-                public PullResult answer(InvocationOnMock mock) throws Throwable {
-                    PullMessageRequestHeader requestHeader = mock.getArgument(1);
-                    MessageClientExt messageClientExt = new MessageClientExt();
-                    messageClientExt.setTopic(topic);
-                    messageClientExt.setQueueId(0);
-                    messageClientExt.setMsgId("123");
-                    messageClientExt.setBody(new byte[] {'a'});
-                    messageClientExt.setOffsetMsgId("234");
-                    messageClientExt.setBornHost(new InetSocketAddress(8080));
-                    messageClientExt.setStoreHost(new InetSocketAddress(8080));
-                    PullResult pullResult = createPullResult(requestHeader, PullStatus.FOUND, Collections.<MessageExt>singletonList(messageClientExt));
-                    ((PullCallback) mock.getArgument(4)).onSuccess(pullResult);
-                    return pullResult;
-                }
-            });
+                anyLong(), any(CommunicationMode.class), nullable(PullCallback.class)))
+                .thenAnswer(new Answer<PullResult>() {
+                    @Override
+                    public PullResult answer(InvocationOnMock mock) throws Throwable {
+                        PullMessageRequestHeader requestHeader = mock.getArgument(1);
+                        MessageClientExt messageClientExt = new MessageClientExt();
+                        messageClientExt.setTopic(topic);
+                        messageClientExt.setQueueId(0);
+                        messageClientExt.setMsgId("123");
+                        messageClientExt.setBody(new byte[]{'a'});
+                        messageClientExt.setOffsetMsgId("234");
+                        messageClientExt.setBornHost(new InetSocketAddress(8080));
+                        messageClientExt.setStoreHost(new InetSocketAddress(8080));
+                        PullResult pullResult = createPullResult(requestHeader, PullStatus.FOUND, Collections.<MessageExt>singletonList(messageClientExt));
+                        ((PullCallback) mock.getArgument(4)).onSuccess(pullResult);
+                        return pullResult;
+                    }
+                });
 
         consumerGroup = "FooBarGroup" + System.currentTimeMillis();
         pushConsumer = new DefaultMQPushConsumer(consumerGroup);
         pushConsumer.getDefaultMQPushConsumerImpl().registerConsumeMessageHook(
-            new ConsumeMessageOpenTracingHookImpl(tracer));
+                new ConsumeMessageOpenTracingHookImpl(tracer));
         pushConsumer.setNamesrvAddr("127.0.0.1:9876");
         pushConsumer.setPullInterval(60 * 1000);
 
@@ -143,7 +145,7 @@ public class DefaultMQConsumerWithOpenTracingTest {
         pushConsumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
-                ConsumeConcurrentlyContext context) {
+                                                            ConsumeConcurrentlyContext context) {
                 return null;
             }
         });
@@ -180,7 +182,7 @@ public class DefaultMQConsumerWithOpenTracingTest {
         pushConsumer.getDefaultMQPushConsumerImpl().setConsumeMessageService(new ConsumeMessageConcurrentlyService(pushConsumer.getDefaultMQPushConsumerImpl(), new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
-                ConsumeConcurrentlyContext context) {
+                                                            ConsumeConcurrentlyContext context) {
                 messageAtomic.set(msgs.get(0));
                 countDownLatch.countDown();
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
@@ -193,11 +195,12 @@ public class DefaultMQConsumerWithOpenTracingTest {
         MessageExt msg = messageAtomic.get();
         assertThat(msg).isNotNull();
         assertThat(msg.getTopic()).isEqualTo(topic);
-        assertThat(msg.getBody()).isEqualTo(new byte[] {'a'});
+        assertThat(msg.getBody()).isEqualTo(new byte[]{'a'});
 
         // wait until consumeMessageAfter hook of tracer is done surely.
         waitAtMost(1, TimeUnit.SECONDS).until(new Callable() {
-            @Override public Object call() throws Exception {
+            @Override
+            public Object call() throws Exception {
                 return tracer.finishedSpans().size() == 1;
             }
         });
@@ -227,7 +230,7 @@ public class DefaultMQConsumerWithOpenTracingTest {
     }
 
     private PullResultExt createPullResult(PullMessageRequestHeader requestHeader, PullStatus pullStatus,
-        List<MessageExt> messageExtList) throws Exception {
+                                           List<MessageExt> messageExtList) throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         for (MessageExt messageExt : messageExtList) {
             outputStream.write(MessageDecoder.encode(messageExt, false));

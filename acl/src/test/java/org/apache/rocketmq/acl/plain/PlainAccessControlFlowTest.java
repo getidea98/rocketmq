@@ -88,7 +88,6 @@ public class PlainAccessControlFlowTest {
     private boolean isCheckCase3 = false;
 
 
-
     /**
      * backup ACL config files
      *

@@ -19,6 +19,7 @@ package org.apache.rocketmq.client.producer;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
 import org.apache.rocketmq.common.message.Message;
 
 public class RequestResponseFuture {

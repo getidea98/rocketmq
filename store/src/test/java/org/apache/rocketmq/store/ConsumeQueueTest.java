@@ -25,6 +25,7 @@ import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.Map;
+
 import org.apache.rocketmq.common.BrokerConfig;
 import org.apache.rocketmq.common.UtilAll;
 import org.apache.rocketmq.common.message.MessageConst;
@@ -108,7 +109,7 @@ public class ConsumeQueueTest {
     }
 
     public MessageStoreConfig buildStoreConfig(int commitLogFileSize, int cqFileSize,
-        boolean enableCqExt, int cqExtFileSize) {
+                                               boolean enableCqExt, int cqExtFileSize) {
         MessageStoreConfig messageStoreConfig = new MessageStoreConfig();
         messageStoreConfig.setMappedFileSizeCommitLog(commitLogFileSize);
         messageStoreConfig.setMappedFileSizeConsumeQueue(cqFileSize);
@@ -124,21 +125,21 @@ public class ConsumeQueueTest {
 
     protected DefaultMessageStore gen() throws Exception {
         MessageStoreConfig messageStoreConfig = buildStoreConfig(
-            commitLogFileSize, cqFileSize, true, cqExtFileSize
+                commitLogFileSize, cqFileSize, true, cqExtFileSize
         );
 
         BrokerConfig brokerConfig = new BrokerConfig();
 
         DefaultMessageStore master = new DefaultMessageStore(
-            messageStoreConfig,
-            new BrokerStatsManager(brokerConfig.getBrokerClusterName(), brokerConfig.isEnableDetailStat()),
-            new MessageArrivingListener() {
-                @Override
-                public void arriving(String topic, int queueId, long logicOffset, long tagsCode,
-                    long msgStoreTime, byte[] filterBitMap, Map<String, String> properties) {
+                messageStoreConfig,
+                new BrokerStatsManager(brokerConfig.getBrokerClusterName(), brokerConfig.isEnableDetailStat()),
+                new MessageArrivingListener() {
+                    @Override
+                    public void arriving(String topic, int queueId, long logicOffset, long tagsCode,
+                                         long msgStoreTime, byte[] filterBitMap, Map<String, String> properties) {
+                    }
                 }
-            }
-            , brokerConfig);
+                , brokerConfig);
 
         assertThat(master.load()).isTrue();
 
@@ -149,7 +150,7 @@ public class ConsumeQueueTest {
 
     protected DefaultMessageStore genForMultiQueue() throws Exception {
         MessageStoreConfig messageStoreConfig = buildStoreConfig(
-            commitLogFileSize, cqFileSize, true, cqExtFileSize
+                commitLogFileSize, cqFileSize, true, cqExtFileSize
         );
 
         messageStoreConfig.setEnableLmq(true);
@@ -158,15 +159,15 @@ public class ConsumeQueueTest {
         BrokerConfig brokerConfig = new BrokerConfig();
 
         DefaultMessageStore master = new DefaultMessageStore(
-            messageStoreConfig,
-            new BrokerStatsManager(brokerConfig.getBrokerClusterName(), brokerConfig.isEnableDetailStat()),
-            new MessageArrivingListener() {
-                @Override
-                public void arriving(String topic, int queueId, long logicOffset, long tagsCode,
-                    long msgStoreTime, byte[] filterBitMap, Map<String, String> properties) {
+                messageStoreConfig,
+                new BrokerStatsManager(brokerConfig.getBrokerClusterName(), brokerConfig.isEnableDetailStat()),
+                new MessageArrivingListener() {
+                    @Override
+                    public void arriving(String topic, int queueId, long logicOffset, long tagsCode,
+                                         long msgStoreTime, byte[] filterBitMap, Map<String, String> properties) {
+                    }
                 }
-            }
-            , brokerConfig);
+                , brokerConfig);
 
         assertThat(master.load()).isTrue();
 
@@ -259,7 +260,7 @@ public class ConsumeQueueTest {
             assertThat(cq).isNotNull();
 
             Object dispatchResult = method.invoke(cq, dispatchRequest.getCommitLogOffset(),
-                dispatchRequest.getMsgSize(), dispatchRequest.getTagsCode(), dispatchRequest.getConsumeQueueOffset());
+                    dispatchRequest.getMsgSize(), dispatchRequest.getTagsCode(), dispatchRequest.getConsumeQueueOffset());
 
             assertThat(Boolean.parseBoolean(dispatchResult.toString())).isTrue();
 
@@ -301,7 +302,7 @@ public class ConsumeQueueTest {
 
             assertThat(cq).isNotNull();
 
-            Object dispatchResult = method.invoke(cq,  dispatchRequest, true);
+            Object dispatchResult = method.invoke(cq, dispatchRequest, true);
 
             ConsumeQueue lmqCq1 = messageStore.getConsumeQueueTable().get("%LMQ%123").get(0);
 

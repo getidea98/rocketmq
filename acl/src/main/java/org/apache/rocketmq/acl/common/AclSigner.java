@@ -20,6 +20,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.rocketmq.common.constant.LoggerName;
 import org.apache.rocketmq.logging.InternalLogger;
@@ -37,12 +38,12 @@ public class AclSigner {
     }
 
     public static String calSignature(String data, String key, SigningAlgorithm algorithm,
-        Charset charset) throws AclException {
+                                      Charset charset) throws AclException {
         return signAndBase64Encode(data, key, algorithm, charset);
     }
 
     private static String signAndBase64Encode(String data, String key, SigningAlgorithm algorithm, Charset charset)
-        throws AclException {
+            throws AclException {
         try {
             byte[] signature = sign(data.getBytes(charset), key.getBytes(charset), algorithm);
             return new String(Base64.encodeBase64(signature), DEFAULT_CHARSET);
@@ -70,12 +71,12 @@ public class AclSigner {
     }
 
     public static String calSignature(byte[] data, String key, SigningAlgorithm algorithm,
-        Charset charset) throws AclException {
+                                      Charset charset) throws AclException {
         return signAndBase64Encode(data, key, algorithm, charset);
     }
 
     private static String signAndBase64Encode(byte[] data, String key, SigningAlgorithm algorithm, Charset charset)
-        throws AclException {
+            throws AclException {
         try {
             byte[] signature = sign(data, key.getBytes(charset), algorithm);
             return new String(Base64.encodeBase64(signature), DEFAULT_CHARSET);

@@ -137,7 +137,7 @@ public class QueryMsgByUniqueKeySubCommandTest {
 
 
         ConsumeStats consumeStats = new ConsumeStats();
-        consumeStats.setConsumeTps(100*10000);
+        consumeStats.setConsumeTps(100 * 10000);
         HashMap<MessageQueue, OffsetWrapper> offsetTable = new HashMap<MessageQueue, OffsetWrapper>();
         MessageQueue messageQueue = new MessageQueue();
         messageQueue.setBrokerName("messageQueue BrokerName testing");
@@ -149,7 +149,7 @@ public class QueryMsgByUniqueKeySubCommandTest {
         offsetWrapper.setLastTimestamp(System.currentTimeMillis());
         offsetTable.put(messageQueue, offsetWrapper);
         consumeStats.setOffsetTable(offsetTable);
-        when(mQClientAPIImpl.getConsumeStats(anyString(), anyString(), (String)isNull(), anyLong())).thenReturn(consumeStats);
+        when(mQClientAPIImpl.getConsumeStats(anyString(), anyString(), (String) isNull(), anyLong())).thenReturn(consumeStats);
 
         ClusterInfo clusterInfo = new ClusterInfo();
         HashMap<String, BrokerData> brokerAddrTable = new HashMap<String, BrokerData>();
@@ -211,7 +211,6 @@ public class QueryMsgByUniqueKeySubCommandTest {
         String[] args = new String[]{"-t myTopicTest", "-i 7F000001000004D20000000000000066"};
         CommandLine commandLine = ServerUtil.parseCmdLine("mqadmin ", args, cmd.buildCommandlineOptions(options), new PosixParser());
         cmd.execute(commandLine, options, null);
-
 
 
     }

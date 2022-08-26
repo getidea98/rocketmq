@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.apache.rocketmq.client.consumer.DefaultMQPullConsumer;
 import org.apache.rocketmq.client.consumer.MessageSelector;
@@ -74,8 +75,8 @@ public class SqlFilterIT extends BaseConf {
         Assert.assertEquals("Not all sent succeeded", msgSize * 3, producer.getAllUndupMsgBody().size());
         consumer.getListener().waitForMessageConsume(msgSize * 2, consumeTime);
         assertThat(producer.getAllMsgBody())
-            .containsAllIn(VerifyUtils.getFilterdMessage(producer.getAllMsgBody(),
-                consumer.getListener().getAllMsgBody()));
+                .containsAllIn(VerifyUtils.getFilterdMessage(producer.getAllMsgBody(),
+                        consumer.getListener().getAllMsgBody()));
 
         assertThat(consumer.getListener().getAllMsgBody().size()).isEqualTo(msgSize * 2);
     }
@@ -102,7 +103,7 @@ public class SqlFilterIT extends BaseConf {
             while (true) {
                 try {
                     PullResult pullResult =
-                        consumer.pull(mq, selector, getMessageQueueOffset(mq), 32);
+                            consumer.pull(mq, selector, getMessageQueueOffset(mq), 32);
                     putMessageQueueOffset(mq, pullResult.getNextBeginOffset());
                     switch (pullResult.getPullStatus()) {
                         case FOUND:

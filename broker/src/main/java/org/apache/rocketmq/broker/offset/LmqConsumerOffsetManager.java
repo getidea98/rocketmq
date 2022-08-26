@@ -67,7 +67,7 @@ public class LmqConsumerOffsetManager extends ConsumerOffsetManager {
 
     @Override
     public void commitOffset(final String clientHost, final String group, final String topic, final int queueId,
-        final long offset) {
+                             final long offset) {
         if (!MixAll.isLmq(group)) {
             super.commitOffset(clientHost, group, topic, queueId, offset);
             return;

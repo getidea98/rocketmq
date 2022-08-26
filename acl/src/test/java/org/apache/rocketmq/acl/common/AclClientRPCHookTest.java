@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
+
 import org.apache.rocketmq.common.MixAll;
 import org.apache.rocketmq.common.protocol.RequestCode;
 import org.apache.rocketmq.common.protocol.header.PullMessageRequestHeader;
@@ -35,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AclClientRPCHookTest {
     protected ConcurrentHashMap<Class<? extends CommandCustomHeader>, Field[]> fieldCache =
-        new ConcurrentHashMap<Class<? extends CommandCustomHeader>, Field[]>();
+            new ConcurrentHashMap<Class<? extends CommandCustomHeader>, Field[]>();
     private AclClientRPCHook aclClientRPCHook = new AclClientRPCHook(null);
 
     @Test

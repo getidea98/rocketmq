@@ -116,7 +116,6 @@ public class DefaultMessageStoreCleanFilesTest {
         initMessageStore(config, diskSpaceCleanForciblyRatio, diskSpaceWarningLevelRatio);
 
 
-
         // build and put messages, some messages failed to write because the disk is full.
         buildAndPutMessagesToMessageStore(msgCount);
         MappedFileQueue commitLogQueue = getMappedFileQueueCommitLog();
@@ -337,7 +336,7 @@ public class DefaultMessageStoreCleanFilesTest {
     }
 
     private DefaultMessageStore.CleanCommitLogService getCleanCommitLogService(double diskSpaceCleanForciblyRatio,
-        double diskSpaceWarningLevelRatio) throws Exception {
+                                                                               double diskSpaceWarningLevelRatio) throws Exception {
         Field serviceField = messageStore.getClass().getDeclaredField("cleanCommitLogService");
         serviceField.setAccessible(true);
         DefaultMessageStore.CleanCommitLogService cleanCommitLogService =
@@ -489,7 +488,7 @@ public class DefaultMessageStoreCleanFilesTest {
     }
 
     private void initMessageStore(MessageStoreConfig messageStoreConfig, double diskSpaceCleanForciblyRatio,
-        double diskSpaceWarningLevelRatio) throws Exception {
+                                  double diskSpaceWarningLevelRatio) throws Exception {
         messageStore = new DefaultMessageStore(messageStoreConfig,
                 new BrokerStatsManager("test", true), new MyMessageArrivingListener(), new BrokerConfig());
 

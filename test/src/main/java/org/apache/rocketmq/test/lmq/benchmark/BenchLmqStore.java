@@ -37,6 +37,7 @@ import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.apache.rocketmq.test.util.StatUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -48,6 +49,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
+
 public class BenchLmqStore {
     private static Logger logger = LoggerFactory.getLogger(BenchLmqStore.class);
     private static String namesrv = System.getProperty("namesrv", "127.0.0.1:9876");
@@ -74,7 +76,7 @@ public class BenchLmqStore {
     private static final String LMQ_PREFIX = "%LMQ%";
 
     public static void main(String[] args) throws InterruptedException, MQClientException, MQBrokerException,
-        RemotingException {
+            RemotingException {
         defaultMQProducer = new DefaultMQProducer();
         defaultMQProducer.setProducerGroup("PID_LMQ_TEST");
         defaultMQProducer.setVipChannelEnabled(false);
@@ -137,6 +139,7 @@ public class BenchLmqStore {
         Thread.sleep(5000L);
         doSend();
     }
+
     public static void doSend() {
         StringBuilder sb = new StringBuilder();
         for (int j = 0; j < size; j += 10) {
@@ -184,6 +187,7 @@ public class BenchLmqStore {
             });
         }
     }
+
     public static void doPull(Map<MessageQueue, Long> eventMap, MessageQueue mq, Long eventId) throws RemotingException, InterruptedException, MQClientException {
         if (!enableSub) {
             eventMap.remove(mq, eventId);
@@ -228,6 +232,7 @@ public class BenchLmqStore {
                             }
                         }
                     }
+
                     @Override
                     public void onException(Throwable e) {
                         eventMap.remove(mq, eventId);
@@ -237,6 +242,7 @@ public class BenchLmqStore {
                     }
                 });
     }
+
     public static void doBenchOffset() throws RemotingException, InterruptedException, MQClientException {
         ExecutorService sendPool = Executors.newFixedThreadPool(sendThreadNum);
         Map<String, Long> offsetMap = new ConcurrentHashMap<>();

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -56,7 +57,7 @@ public class GetConsumerConfigSubCommand implements SubCommand {
 
     @Override
     public void execute(CommandLine commandLine, Options options,
-        RPCHook rpcHook) throws SubCommandException {
+                        RPCHook rpcHook) throws SubCommandException {
         DefaultMQAdminExt adminExt = new DefaultMQAdminExt(rpcHook);
         adminExt.setInstanceName(Long.toString(System.currentTimeMillis()));
         String groupName = commandLine.getOptionValue('g').trim();
@@ -79,7 +80,7 @@ public class GetConsumerConfigSubCommand implements SubCommand {
             }
             for (ConsumerConfigInfo info : consumerConfigInfoList) {
                 System.out.printf("=============================%s:%s=============================\n",
-                    info.getClusterName(), info.getBrokerName());
+                        info.getClusterName(), info.getBrokerName());
                 SubscriptionGroupConfig config = info.getSubscriptionGroupConfig();
                 Field[] fields = config.getClass().getDeclaredFields();
                 for (Field field : fields) {

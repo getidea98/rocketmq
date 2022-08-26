@@ -99,7 +99,8 @@ public class RequestFutureHolder {
         }
     }
 
-    private RequestFutureHolder() {}
+    private RequestFutureHolder() {
+    }
 
     public static RequestFutureHolder getInstance() {
         return INSTANCE;

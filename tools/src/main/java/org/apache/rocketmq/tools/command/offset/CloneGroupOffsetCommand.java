@@ -18,6 +18,7 @@
 package org.apache.rocketmq.tools.command.offset;
 
 import java.util.Set;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -94,7 +95,7 @@ public class CloneGroupOffsetCommand implements SubCommand {
                 }
             }
             System.out.printf("clone group offset success. srcGroup[%s], destGroup=[%s], topic[%s]",
-                srcGroup, destGroup, topic);
+                    srcGroup, destGroup, topic);
         } catch (Exception e) {
             throw new SubCommandException(this.getClass().getSimpleName() + " command failed", e);
         } finally {

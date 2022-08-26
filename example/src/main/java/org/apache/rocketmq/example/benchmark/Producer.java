@@ -19,6 +19,7 @@ package org.apache.rocketmq.example.benchmark;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.LongAdder;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -80,10 +81,10 @@ public class Producer {
         final int threadCount = asyncEnable ? 1 : commandLine.hasOption('w') ? Integer.parseInt(commandLine.getOptionValue('w')) : 64;
 
         System.out.printf("topic: %s threadCount: %d messageSize: %d keyEnable: %s propertySize: %d tagCount: %d " +
-                "traceEnable: %s aclEnable: %s messageQuantity: %d%ndelayEnable: %s delayLevel: %s%n" +
-                "asyncEnable: %s%n",
-            topic, threadCount, messageSize, keyEnable, propertySize, tagCount, msgTraceEnable, aclEnable, messageNum,
-            delayEnable, delayLevel, asyncEnable);
+                        "traceEnable: %s aclEnable: %s messageQuantity: %d%ndelayEnable: %s delayLevel: %s%n" +
+                        "asyncEnable: %s%n",
+                topic, threadCount, messageSize, keyEnable, propertySize, tagCount, msgTraceEnable, aclEnable, messageNum,
+                delayEnable, delayLevel, asyncEnable);
 
         StringBuilder sb = new StringBuilder(messageSize);
         for (int i = 0; i < messageSize; i++) {
@@ -125,7 +126,7 @@ public class Producer {
         executorService.scheduleAtFixedRate(new TimerTask() {
             private void printStats() {
                 if (snapshotList.size() >= 10) {
-                    doPrintStats(snapshotList,  statsBenchmark, false);
+                    doPrintStats(snapshotList, statsBenchmark, false);
                 }
             }
 
@@ -265,8 +266,8 @@ public class Producer {
                 doPrintStats(snapshotList, statsBenchmark, true);
             } else {
                 System.out.printf("[Complete] Send Total: %d Send Failed: %d Response Failed: %d%n",
-                    statsBenchmark.getSendRequestSuccessCount().longValue() + statsBenchmark.getSendRequestFailedCount().longValue(),
-                    statsBenchmark.getSendRequestFailedCount().longValue(), statsBenchmark.getReceiveResponseFailedCount().longValue());
+                        statsBenchmark.getSendRequestSuccessCount().longValue() + statsBenchmark.getSendRequestFailedCount().longValue(),
+                        statsBenchmark.getSendRequestFailedCount().longValue(), statsBenchmark.getReceiveResponseFailedCount().longValue());
             }
             producer.shutdown();
         } catch (InterruptedException e) {
@@ -358,11 +359,11 @@ public class Producer {
 
         if (done) {
             System.out.printf("[Complete] Send Total: %d Send TPS: %d Max RT(ms): %d Average RT(ms): %7.3f Send Failed: %d Response Failed: %d%n",
-                statsBenchmark.getSendRequestSuccessCount().longValue() + statsBenchmark.getSendRequestFailedCount().longValue(),
-                sendTps, statsBenchmark.getSendMessageMaxRT().longValue(), averageRT, end[2], end[4]);
+                    statsBenchmark.getSendRequestSuccessCount().longValue() + statsBenchmark.getSendRequestFailedCount().longValue(),
+                    sendTps, statsBenchmark.getSendMessageMaxRT().longValue(), averageRT, end[2], end[4]);
         } else {
             System.out.printf("Current Time: %s Send TPS: %d Max RT(ms): %d Average RT(ms): %7.3f Send Failed: %d Response Failed: %d%n",
-                UtilAll.timeMillisToHumanString2(System.currentTimeMillis()), sendTps, statsBenchmark.getSendMessageMaxRT().longValue(), averageRT, end[2], end[4]);
+                    UtilAll.timeMillisToHumanString2(System.currentTimeMillis()), sendTps, statsBenchmark.getSendMessageMaxRT().longValue(), averageRT, end[2], end[4]);
         }
     }
 }
@@ -381,13 +382,13 @@ class StatsBenchmarkProducer {
     private final AtomicLong sendMessageMaxRT = new AtomicLong(0L);
 
     public Long[] createSnapshot() {
-        Long[] snap = new Long[] {
-            System.currentTimeMillis(),
-            this.sendRequestSuccessCount.longValue(),
-            this.sendRequestFailedCount.longValue(),
-            this.receiveResponseSuccessCount.longValue(),
-            this.receiveResponseFailedCount.longValue(),
-            this.sendMessageSuccessTimeTotal.longValue(),
+        Long[] snap = new Long[]{
+                System.currentTimeMillis(),
+                this.sendRequestSuccessCount.longValue(),
+                this.sendRequestFailedCount.longValue(),
+                this.receiveResponseSuccessCount.longValue(),
+                this.receiveResponseFailedCount.longValue(),
+                this.sendMessageSuccessTimeTotal.longValue(),
         };
 
         return snap;

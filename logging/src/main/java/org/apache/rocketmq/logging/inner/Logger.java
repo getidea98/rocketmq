@@ -276,7 +276,7 @@ public class Logger implements Appender.AppenderPipeline {
 
     public static class DefaultLoggerRepository implements LoggerRepository {
 
-        final Hashtable<CategoryKey,Object> ht = new Hashtable<CategoryKey,Object>();
+        final Hashtable<CategoryKey, Object> ht = new Hashtable<CategoryKey, Object>();
         Logger root;
 
         int logLevelInt;
@@ -354,7 +354,7 @@ public class Logger implements Appender.AppenderPipeline {
             while (elems.hasMoreElements()) {
                 Object o = elems.nextElement();
                 if (o instanceof Logger) {
-                    Logger logger = (Logger)o;
+                    Logger logger = (Logger) o;
                     loggers.addElement(logger);
                 }
             }

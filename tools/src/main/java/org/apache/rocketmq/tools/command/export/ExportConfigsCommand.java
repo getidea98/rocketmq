@@ -52,7 +52,7 @@ public class ExportConfigsCommand implements SubCommand {
         options.addOption(opt);
 
         opt = new Option("f", "filePath", true,
-            "export configs.json path | default /tmp/rocketmq/export");
+                "export configs.json path | default /tmp/rocketmq/export");
         opt.setRequired(false);
         options.addOption(opt);
         return options;
@@ -60,14 +60,14 @@ public class ExportConfigsCommand implements SubCommand {
 
     @Override
     public void execute(CommandLine commandLine, Options options, RPCHook rpcHook)
-        throws SubCommandException {
+            throws SubCommandException {
         DefaultMQAdminExt defaultMQAdminExt = new DefaultMQAdminExt(rpcHook);
         defaultMQAdminExt.setInstanceName(Long.toString(System.currentTimeMillis()));
 
         try {
             String clusterName = commandLine.getOptionValue('c').trim();
             String filePath = !commandLine.hasOption('f') ? "/tmp/rocketmq/export" : commandLine.getOptionValue('f')
-                .trim();
+                    .trim();
 
             defaultMQAdminExt.start();
             Map<String, Object> result = new HashMap<>();
@@ -79,7 +79,7 @@ public class ExportConfigsCommand implements SubCommand {
             int slaveBrokerSize = 0;
             Map<String, Properties> brokerConfigs = new HashMap<>();
             Map<String, List<String>> masterAndSlaveMap
-                = CommandUtil.fetchMasterAndSlaveDistinguish(defaultMQAdminExt, clusterName);
+                    = CommandUtil.fetchMasterAndSlaveDistinguish(defaultMQAdminExt, clusterName);
             for (Entry<String, List<String>> masterAndSlaveEntry : masterAndSlaveMap.entrySet()) {
                 Properties masterProperties = defaultMQAdminExt.getBrokerConfig(masterAndSlaveEntry.getKey());
                 masterBrokerSize++;

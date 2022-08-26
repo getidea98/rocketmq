@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import junit.framework.TestCase;
 import org.apache.rocketmq.common.message.MessageQueue;
 import org.junit.Assert;
@@ -41,8 +42,8 @@ public class AllocateMessageQueueByConfigTest extends TestCase {
             }
             consumerAllocateQueue.put(consumerId, queueIds);
         }
-        Assert.assertArrayEquals(new int[] {0, 1, 2, 3}, consumerAllocateQueue.get("CID_PREFIX0"));
-        Assert.assertArrayEquals(new int[] {0, 1, 2, 3}, consumerAllocateQueue.get("CID_PREFIX1"));
+        Assert.assertArrayEquals(new int[]{0, 1, 2, 3}, consumerAllocateQueue.get("CID_PREFIX0"));
+        Assert.assertArrayEquals(new int[]{0, 1, 2, 3}, consumerAllocateQueue.get("CID_PREFIX1"));
     }
 
     private List<String> createConsumerIdList(int size) {

@@ -17,9 +17,11 @@
 package org.apache.rocketmq.broker.client;
 
 import io.netty.channel.Channel;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import org.apache.rocketmq.broker.BrokerController;
 import org.apache.rocketmq.common.ThreadFactoryImpl;
 import org.apache.rocketmq.common.constant.LoggerName;
@@ -32,7 +34,7 @@ public class ClientHousekeepingService implements ChannelEventListener {
     private final BrokerController brokerController;
 
     private ScheduledExecutorService scheduledExecutorService = Executors
-        .newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ClientHousekeepingScheduledThread"));
+            .newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ClientHousekeepingScheduledThread"));
 
     public ClientHousekeepingService(final BrokerController brokerController) {
         this.brokerController = brokerController;

@@ -20,6 +20,7 @@ package org.apache.rocketmq.tools.command.topic;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.rocketmq.common.message.MessageQueue;
 
 public class RebalanceResult {
