@@ -250,9 +250,7 @@ public class BrokerController {
 
         if (result) {
             try {
-                this.messageStore =
-                        new DefaultMessageStore(this.messageStoreConfig, this.brokerStatsManager, this.messageArrivingListener,
-                                this.brokerConfig);
+                this.messageStore = new DefaultMessageStore(this.messageStoreConfig, this.brokerStatsManager, this.messageArrivingListener, this.brokerConfig);
                 if (messageStoreConfig.isEnableDLegerCommitLog()) {
                     DLedgerRoleChangeHandler roleChangeHandler = new DLedgerRoleChangeHandler(this, (DefaultMessageStore) messageStore);
                     ((DLedgerCommitLog) ((DefaultMessageStore) messageStore).getCommitLog()).getdLedgerServer().getdLedgerLeaderElector().addRoleChangeHandler(roleChangeHandler);
@@ -890,17 +888,10 @@ public class BrokerController {
             this.registerBrokerAll(true, false, true);
         }
 
-        this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    BrokerController.this.registerBrokerAll(true, false, brokerConfig.isForceRegister());
-                } catch (Throwable e) {
-                    log.error("registerBrokerAll Exception", e);
-                }
-            }
-        }, 1000 * 10, Math.max(10000, Math.min(brokerConfig.getRegisterNameServerPeriod(), 60000)), TimeUnit.MILLISECONDS);
+        this.scheduledExecutorService.scheduleAtFixedRate(() -> BrokerController.this.registerBrokerAll(true, false, brokerConfig.isForceRegister()),
+                1000 * 10,
+                Math.max(10000, Math.min(brokerConfig.getRegisterNameServerPeriod(), 60000)),
+                TimeUnit.MILLISECONDS);
 
         if (this.brokerStatsManager != null) {
             this.brokerStatsManager.start();

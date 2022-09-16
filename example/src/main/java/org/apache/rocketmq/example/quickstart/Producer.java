@@ -40,9 +40,7 @@ public class Producer {
 
         DefaultMQProducer producer = new DefaultMQProducer(PRODUCER_GROUP);
 
-
         producer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
-
 
         producer.start();
 
